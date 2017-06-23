@@ -3,10 +3,10 @@
 		private $id = 0;
 		private $name = '';
 		private $pw = '';
-		public function __construct($id=0,$name=null,$pw=null){
-			$this -> id= $id;
-			$this -> name = $name;
-			$this -> pw = $pw;
+		public function __construct($id=null,$name=null,$pw=null){
+				$this -> id= $id;
+				$this -> name = $name;
+				$this -> pw = $pw;
 		}
 		
 		public function __get($proName){
@@ -24,14 +24,15 @@
 			$salt.= substr(strtr(base64_encode($randomValue),'+','.'),0,22);
 			return crypt($rowpw,$salt);		
 		}
+		
 		public function bcryptVerfy($rowpw,$storedHash){
 			return crypt($rowpw,$storedHash) == $storedHash;
 		}
+		
 		public function getinfo(){
 			$rowpw = $this -> pw;
-			$hashpw = $this -> bcryptHash($rowpw);
-			echo "my id is ".$this -> id.";"." my name is ".$this -> name."; my password is ".$hashpw.";";
-			
+			$hashpw = $this -> bcryptHash($rowpw);	
+			echo "my id is ".$this -> id.";"." my name is ".$this -> name."; my password is ".$hashpw.";";		
 		}
 	}
 ?>
